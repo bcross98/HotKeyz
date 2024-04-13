@@ -65,7 +65,7 @@ def XPFarm():
 #Handles the main selection menu and the exit thread
 def main():
     while True:
-        selection = input("Enter 1 for a simple Cobblestone afk.\nEnter 2 for complex Cobblestone afk.\nEnter 3 for XP.\nPress e to leave\n")
+        selection = input("Enter 1 for a simple Cobblestone afk (1 pick).\nEnter 2 for complex Cobblestone afk (multiple picks).\nEnter 3 for XP afk.\nPress e to leave\n")
         
         if selection == '1':
             os.system('cls||clear')
