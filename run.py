@@ -91,6 +91,20 @@ def XpFarmListener():
         if keyboard.is_pressed('e'):
             os._exit(1)
 
+def XpFarmConnector():
+    s = Thread(target=XpFarmListener)
+    s.daemon = True
+    s.start()
+
+def ComplexCobblestoneConnector():
+    s = Thread(target=ComplexCobblestoneListener)
+    s.daemon = True
+    s.start()
+
+def SimpleCobblestoneConnector():
+    s = Thread(target=SimpleCobblestoneListener)
+    s.daemon = True
+    s.start()
 
 
 
@@ -138,7 +152,7 @@ cobbleButton = Button(selectionFrame, text='Cobblestone', command=toCobbleFrame)
 cobbleButton.pack(side=LEFT)
 #XP Farm Button
 #todo: link to xp function
-xpButton = Button(selectionFrame, text='XP Farm', command=lambda: toLoadingFrame() and XpFarmListener())
+xpButton = Button(selectionFrame, text='XP Farm', command=lambda: [toLoadingFrame(), XpFarmConnector()])
 xpButton.pack(side=LEFT)
 
 #Cobble Frame
@@ -146,10 +160,10 @@ xpButton.pack(side=LEFT)
 cobbleLabel = Label(cobbleFrame, text="Pick your poison.\n\n")
 cobbleLabel.pack(side=TOP)
 #Simple Button
-simpleCobble = Button(cobbleFrame, text="1 pick", command=lambda: toLoadingFrame() and SimpleCobblestoneListener())
+simpleCobble = Button(cobbleFrame, text="1 pick", command=lambda: [toLoadingFrame() and SimpleCobblestoneConnector()])
 simpleCobble.pack(side=LEFT)
 #Complex Button
-complexCobble = Button(cobbleFrame, text='Multiple picks', command=lambda: toLoadingFrame() and ComplexCobblestoneListener())
+complexCobble = Button(cobbleFrame, text='Multiple picks', command=lambda: [toLoadingFrame() and ComplexCobblestoneConnector()])
 complexCobble.pack(side=LEFT)
 #Back Button
 cobbleExit = Button(cobbleFrame, text='Back', command=toSelectionFrame)
