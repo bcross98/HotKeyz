@@ -90,3 +90,76 @@ def XpFarmListener():
     while True:
         if keyboard.is_pressed('e'):
             os._exit(1)
+
+
+
+
+#GUI
+#
+#
+#
+from tkinter import *
+from tkinter import font
+
+#The window
+window = Tk()
+window.title('MC Helper')
+
+#Frame
+cobbleFrame = Frame(window)
+loadingFrame = Frame(window)
+selectionFrame = Frame(window)
+selectionFrame.pack()
+
+#Change to Cobblestone Frame
+def toCobbleFrame():
+    cobbleFrame.pack(fill='both', expand=1)
+    selectionFrame.pack_forget()
+    loadingFrame.pack_forget()
+
+#Change to Selection Frame
+def toSelectionFrame():
+    selectionFrame.pack(fill='both', expand=1)
+    cobbleFrame.pack_forget()
+    loadingFrame.pack_forget()
+
+#Change to Loading Frame.
+def toLoadingFrame():
+    loadingFrame.pack(fill='both', expand=1)
+    cobbleFrame.pack_forget()
+    selectionFrame.pack_forget()
+
+#Selection Frame
+#Text
+selectionLabel = Label(selectionFrame, text="Pick your poison.\n\n")
+selectionLabel.pack(side=TOP)
+#Cobblestone Button
+cobbleButton = Button(selectionFrame, text='Cobblestone', command=toCobbleFrame)
+cobbleButton.pack(side=LEFT)
+#XP Farm Button
+#todo: link to xp function
+xpButton = Button(selectionFrame, text='XP Farm', command=lambda: toLoadingFrame() and XpFarmListener())
+xpButton.pack(side=LEFT)
+
+#Cobble Frame
+#Text
+cobbleLabel = Label(cobbleFrame, text="Pick your poison.\n\n")
+cobbleLabel.pack(side=TOP)
+#Simple Button
+simpleCobble = Button(cobbleFrame, text="1 pick", command=lambda: toLoadingFrame() and SimpleCobblestoneListener())
+simpleCobble.pack(side=LEFT)
+#Complex Button
+complexCobble = Button(cobbleFrame, text='Multiple picks', command=lambda: toLoadingFrame() and ComplexCobblestoneListener())
+complexCobble.pack(side=LEFT)
+#Back Button
+cobbleExit = Button(cobbleFrame, text='Back', command=toSelectionFrame)
+cobbleExit.pack(side=LEFT)
+
+#Loading Frame
+#Text
+loadingLabel = Label(loadingFrame, text="Loading...\n\nMake sure you're in\nyour Minecraft window.")
+loadingLabel.pack()
+
+
+#Start page
+window.mainloop()
