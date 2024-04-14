@@ -61,45 +61,65 @@ def XPFarm():
         pyautogui.click()
         time.sleep(0.5)
 
-#Main function
-#Handles the main selection menu and the exit thread
-def main():
+#These functions set up a second thread listening for the escape key
+#todo: make it smaller
+def SimpleCobblestoneListener():
+    t = Thread(target=SimpleCobblestoneGenerator)
+    t.daemon = True
+    t.start()
     while True:
-        selection = input("Enter 1 for a simple Cobblestone afk (1 pick).\nEnter 2 for complex Cobblestone afk (multiple picks).\nEnter 3 for XP afk.\nPress e to leave\n")
-        
-        if selection == '1':
-            os.system('cls||clear')
-            t = Thread(target=SimpleCobblestoneGenerator)
-            t.daemon = True
-            t.start()
-            while True:
-                if keyboard.is_pressed('e'):
-                    pyautogui.mouseUp()
-                    os._exit(1)
-
-        elif selection == '2':
-            os.system('cls||clear')
-            t = Thread(target=ComplexCobblestoneGenerator)
-            t.daemon = True
-            t.start()
-            while True:
-                if keyboard.is_pressed('e'):
-                    pyautogui.mouseUp()
-                    os._exit(1)
-
-        elif selection == '3':
-            os.system('cls||clear')
-            t = Thread(target=XPFarm)
-            t.daemon = True
-            t.start()
-            while True:
-                if keyboard.is_pressed('e'):
-                    pyautogui.mouseUp()
-                    os._exit(1)
-
-        elif selection in ('e', 'E'):
-            os.system('cls||clear')
+        if keyboard.is_pressed('e'):
+            pyautogui.mouseUp()
             os._exit(1)
 
-#Start the program
-main()
+def ComplexCobblestoneListener():
+    t = Thread(target=ComplexCobblestoneGenerator)
+    t.daemon = True
+    t.start()
+    while True:
+        if keyboard.is_pressed('e'):
+            pyautogui.mouseUp()
+            os._exit(1)
+
+def XpFarmListener():
+    t = Thread(target=XPFarm)
+    t.daemon = True
+    t.start()
+    while True:
+        if keyboard.is_pressed('e'):
+            os._exit(1)
+
+
+
+#GUI
+#todo: link the rest of the text to the gui
+#
+#
+#
+import tkinter as tk
+
+#Window
+window = tk.Tk()
+window.title('MC Helper')
+
+#Simple Cobblestone Button
+#todo: link to function
+simpleButton = tk.Button(window, text="Simple Cobble afk",command=SimpleCobblestoneListener)
+simpleButton.grid(row=1, column=0)
+
+#Complex Cobblestone Button
+#todo: link to function
+complexButton = tk.Button(window, text="Complex Cobble afk",command=ComplexCobblestoneListener)
+complexButton.grid(row=1, column=1)
+
+#XP Farm Button
+#todo: link to function
+xpFarmButton = tk.Button(window, text='XP Farm afk',command=XpFarmListener)
+xpFarmButton.grid(row=1, column=2)
+
+#Exit Button
+simpleButton = tk.Button(window, text='Exit', command=window.destroy)
+simpleButton.grid(row=2, column=1)
+
+#Starts program
+window.mainloop()
