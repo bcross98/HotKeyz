@@ -7,3 +7,7 @@ I built this because I'm lazy. You're given 3 options: 1.) A simple cobblestone 
 TO RUN:
 1.) Get python 3 - https://www.microsoft.com/store/productId/9NCVDN91XZQP?ocid=pdpshare
 2.) Get pyautogui - in cmd type: pip install pyautogui
+
+WHERE I LEFT OFF:
+- XP farm works
+-neither cobblestone farms work
