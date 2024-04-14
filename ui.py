@@ -26,7 +26,7 @@ def mainWindow():
 
     #Exit Button
     simpleButton = tk.Button(window, text='Exit', command=window.destroy)
-    simpleButton.grid(row=2, column=1)
+    simpleButton.grid(row=1, column=3)
 
     #Starts program
     window.mainloop()
