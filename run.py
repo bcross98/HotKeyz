@@ -1,3 +1,5 @@
+#Welcome to Python. Python is a computer language that's highly readable and very easy to pick up, with a bit of practice.
+#
 #Imports
 #This tells Python what Libraries you want to use.
 #Think of Libraries like tool kits.
