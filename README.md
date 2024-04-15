@@ -6,5 +6,5 @@ TO RUN:
 3.) Get keyboard - in cmd type: pip install keyboard
 
 WHERE I LEFT OFF:
-- XP farm works
--neither cobblestone farms work
+-create question in gui for number of iron picks
+-pass that to the function
