@@ -119,6 +119,7 @@ window.title('MC Helper')
 #Frame
 cobbleFrame = Frame(window)
 loadingFrame = Frame(window)
+complexFrame = Frame(window)
 selectionFrame = Frame(window)
 selectionFrame.pack()
 
@@ -127,25 +128,35 @@ def toCobbleFrame():
     cobbleFrame.pack(fill='both', expand=1)
     selectionFrame.pack_forget()
     loadingFrame.pack_forget()
+    complexFrame.pack_forget()
 
 #Change to Selection Frame
 def toSelectionFrame():
     selectionFrame.pack(fill='both', expand=1)
     cobbleFrame.pack_forget()
     loadingFrame.pack_forget()
+    complexFrame.pack_forget()
 
 #Change to Loading Frame.
 def toLoadingFrame():
     loadingFrame.pack(fill='both', expand=1)
     cobbleFrame.pack_forget()
     selectionFrame.pack_forget()
+    complexFrame.pack_forget()
+
+#Change to Complex Frame.
+def toComplexFrame():
+    complexFrame.pack(fill='both', expand=1)
+    cobbleFrame.pack_forget()
+    selectionFrame.pack_forget()
+    loadingFrame.pack_forget()
 
 #Selection Frame
 #Text
 selectionLabel = Label(selectionFrame, text="Pick your poison.\n\n")
 selectionLabel.pack(side=TOP)
 #Cobblestone Button
-cobbleButton = Button(selectionFrame, text='Cobblestone', command=toCobbleFrame)
+cobbleButton = Button(selectionFrame, text='Cobblestone', command=toCobbleFrame())
 cobbleButton.pack(side=LEFT)
 #XP Farm Button
 #todo: link to xp function
@@ -160,10 +171,10 @@ cobbleLabel.pack(side=TOP)
 simpleCobble = Button(cobbleFrame, text="1 pick", command=lambda: [toLoadingFrame(), SimpleCobblestoneConnector()])
 simpleCobble.pack(side=LEFT)
 #Complex Button
-complexCobble = Button(cobbleFrame, text='Multiple picks', command=lambda: [toLoadingFrame(), ComplexCobblestoneConnector()])
+complexCobble = Button(cobbleFrame, text='Multiple picks', command=toComplexFrame())
 complexCobble.pack(side=LEFT)
 #Back Button
-cobbleExit = Button(cobbleFrame, text='Back', command=toSelectionFrame)
+cobbleExit = Button(cobbleFrame, text='Back', command=toSelectionFrame())
 cobbleExit.pack(side=LEFT)
 
 #Complex Cobble Frame
