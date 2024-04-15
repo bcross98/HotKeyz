@@ -45,8 +45,6 @@ def ComplexCobblestoneGenerator():
                     os.system('cls||clear')
                     os._exit(1)
 
-        elif picks in ('q', 'Q'):
-            break
 
 #XP farm function
 #Attacks in a 0.5 sec interval
