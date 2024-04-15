@@ -28,13 +28,10 @@ def SimpleCobblestoneGenerator():
 #todo: Detect when a pick breaks, detect how many picks, detect what kind of picks, detect how long a pick will last
 def ComplexCobblestoneGenerator():
     while True:
-        picks = input('How many Iron Picks?\nPress e to exit.\n')
-        os.system('cls||clear')
+        picks = complexEntry.get()
         if picks in ('1', '2', '3', '4', '5', '6', '7', '8', '9'):
-            print("Loading Complex Cobblestone afk...\nMake sure you're in your Minecraft window.")
+            toLoadingFrame()
             time.sleep(10)
-            os.system('cls||clear')
-            print("Press e to exit.")
 
             i = 0
             while True:
@@ -185,7 +182,7 @@ complexLabel.pack(side=TOP)
 complexEntry = Entry(complexFrame)
 complexEntry.pack(side=LEFT)
 #Enter Button
-complexButton = Button(complexFrame, text="Enter",)
+complexButton = Button(complexFrame, text="Enter", command=ComplexCobblestoneConnector)
 complexButton.pack(side=LEFT)
 #Back Button
 complexExit = Button(complexFrame, text='Back', command=toCobbleFrame)
