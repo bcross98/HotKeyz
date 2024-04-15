@@ -110,11 +110,11 @@ def SimpleCobblestoneConnector():
 #
 #
 from tkinter import *
-from tkinter import font
 
 #The window
 window = Tk()
 window.title('MC Helper')
+window.geometry('400x150')
 
 #Frame
 cobbleFrame = Frame(window)
@@ -156,7 +156,7 @@ def toComplexFrame():
 selectionLabel = Label(selectionFrame, text="Pick your poison.\n\n")
 selectionLabel.pack(side=TOP)
 #Cobblestone Button
-cobbleButton = Button(selectionFrame, text='Cobblestone', command=toCobbleFrame())
+cobbleButton = Button(selectionFrame, text='Cobblestone', command=toCobbleFrame)
 cobbleButton.pack(side=LEFT)
 #XP Farm Button
 #todo: link to xp function
@@ -171,18 +171,22 @@ cobbleLabel.pack(side=TOP)
 simpleCobble = Button(cobbleFrame, text="1 pick", command=lambda: [toLoadingFrame(), SimpleCobblestoneConnector()])
 simpleCobble.pack(side=LEFT)
 #Complex Button
-complexCobble = Button(cobbleFrame, text='Multiple picks', command=toComplexFrame())
+complexCobble = Button(cobbleFrame, text='Multiple picks', command=toComplexFrame)
 complexCobble.pack(side=LEFT)
 #Back Button
-cobbleExit = Button(cobbleFrame, text='Back', command=toSelectionFrame())
-cobbleExit.pack(side=LEFT)
+cobbleExit = Button(cobbleFrame, text='Back', command=toSelectionFrame)
+cobbleExit.pack(side=RIGHT)
 
 #Complex Cobble Frame
 #Text
+#Entry
+#Back Button
+complexExit = Button(complexFrame, text='Back', command=toCobbleFrame)
+complexExit.pack(side=RIGHT)
 
 #Loading Frame
 #Text
-loadingLabel = Label(loadingFrame, text="Loading...\n\nMake sure you're in\nyour Minecraft window.")
+loadingLabel = Label(loadingFrame, text="Loading...\n\nMake sure you're in\nyour Minecraft window.\n\nPress e to quit.")
 loadingLabel.pack()
 
 
