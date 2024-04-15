@@ -179,6 +179,8 @@ cobbleExit.pack(side=RIGHT)
 
 #Complex Cobble Frame
 #Text
+complexLabel = Label(complexFrame, text='How many Iron Picks?\n\n')
+complexLabel.pack(side=TOP)
 #Entry
 #Back Button
 complexExit = Button(complexFrame, text='Back', command=toCobbleFrame)
