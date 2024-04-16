@@ -6,6 +6,3 @@ TO RUN:
 3.) Get keyboard - in cmd type: pip install keyboard
 
 WHERE I LEFT OFF:
--create question in gui for number of iron picks
--pass that to the function
--center buttons
