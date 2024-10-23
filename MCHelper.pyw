@@ -192,9 +192,13 @@ complexExit = Button(complexFrame, text='Back', command=toCobbleFrame)
 complexExit.grid(row=2, column=3)
 
 #Loading Frame
-#Text
+#WarningText
 loadingLabel = Label(loadingFrame, text="Loading...\n\nMake sure you're in\nyour Minecraft window.\n\nPress e to quit.")
 loadingLabel.grid(row=1, column=2)
+#Countdown
+#TODO FINISH TIMER
+loadingCount = Label(loadingFrame, text='test')
+loadingCount.grid(row=2, column=2)
 
 
 #Start page
