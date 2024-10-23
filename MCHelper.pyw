@@ -13,14 +13,9 @@ import os
 #Runs infinitely
 #TODO: Detect when a pick breaks and stop the script
 def SimpleCobblestoneGenerator():
-    os.system('cls||clear')
-    print("Loading Simple Cobblestone afk...\nMake sure you're in your Minecraft window.")
-    time.sleep(10)
-    os.system('cls||clear')
-    print('Press e to exit.')
+    time.sleep(11)
     pyautogui.mouseDown()
     time.sleep(188)
-    os.system('cls||clear')
 
 
 #Complex Cobblestone Function
@@ -199,7 +194,7 @@ selectionExit.grid(row=2, column=3)
 cobbleLabel = Label(cobbleFrame, text="Pick your poison.\n\n")
 cobbleLabel.grid(row=1, column=2)
 #Simple Button
-simpleCobble = Button(cobbleFrame, text="1 pick", command=lambda: [toLoadingFrame(), SimpleCobblestoneConnector()])
+simpleCobble = Button(cobbleFrame, text="1 pick", command=lambda: [toLoadingFrame(), SimpleCobblestoneConnector(), timerThread()])
 simpleCobble.grid(row=2, column=1)
 #Complex Button
 complexCobble = Button(cobbleFrame, text='Multiple picks', command=toComplexFrame)
