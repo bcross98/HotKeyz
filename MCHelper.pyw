@@ -110,6 +110,9 @@ from tkinter import *
 window = Tk()
 window.title('MC Helper')
 
+#Always on top
+window.wm_attributes('-topmost', 1)
+
 #Frame
 cobbleFrame = Frame(window)
 loadingFrame = Frame(window)
