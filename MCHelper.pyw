@@ -11,7 +11,7 @@ import os
 #
 #Simple Cobblestone Function
 #Runs infinitely
-#todo: Detect when a pick breaks and stop the script
+#TODO: Detect when a pick breaks and stop the script
 def SimpleCobblestoneGenerator():
     os.system('cls||clear')
     print("Loading Simple Cobblestone afk...\nMake sure you're in your Minecraft window.")
@@ -25,7 +25,7 @@ def SimpleCobblestoneGenerator():
 
 #Complex Cobblestone Function
 #Breaks stone and switches picks, however many you have.
-#todo: Detect when a pick breaks, detect how many picks, detect what kind of picks, detect how long a pick will last
+#TODO: Detect when a pick breaks, detect how many picks, detect what kind of picks, detect how long a pick will last
 def ComplexCobblestoneGenerator():
     while True:
         picks = complexEntry.get()
@@ -48,15 +48,15 @@ def ComplexCobblestoneGenerator():
 
 #XP farm function
 #Attacks in a 0.5 sec interval
-#todo: detect when the weapon breaks and stop the script
+#TODO: detect when the weapon breaks and stop the script
 def XPFarm():
-    time.sleep(10)
+    time.sleep(11)
     while True:
         pyautogui.click()
         time.sleep(0.5)
 
 #These functions set up a second thread listening for the escape key
-#todo: make it more compact
+#TODO: make it more compact
 def SimpleCobblestoneListener():
     t = Thread(target=SimpleCobblestoneGenerator)
     t.daemon = True
@@ -97,6 +97,37 @@ def SimpleCobblestoneConnector():
     s = Thread(target=SimpleCobblestoneListener)
     s.daemon = True
     s.start()
+
+#Function to display a dynamic timer
+def timerText():
+    i = 10
+    while i >= 1:
+        textTimer = i
+        loadingCount.config(text=textTimer)
+        time.sleep(1)
+        i -= 1
+    
+    #Show 0
+    loadingCount.config(text="0")
+    time.sleep(1)
+
+    #TODO: Delete Label
+    #For now, we're setting it to empty
+    loadingCount.config(text="")
+
+    #TODO: Delete label 
+    #I also want to set the "get in your minecraft window to empty"
+    warningLabel.config(text="")
+
+    #TODO: Delete label
+    #Maybe this one too
+    loadingLabel.config(text='')
+
+#Thread to run the timer at the same time as tkinter
+def timerThread():
+    timerThread = Thread(target=timerText)
+    timerThread.daemon = True
+    timerThread.start()
 
 
 
@@ -157,7 +188,7 @@ cobbleButton = Button(selectionFrame, text='Cobblestone', command=toCobbleFrame)
 cobbleButton.grid(row=2, column=1)
 #XP Farm Button
 #todo: link to xp function
-xpButton = Button(selectionFrame, text='XP Farm', command=lambda: [toLoadingFrame(), XpFarmConnector()])
+xpButton = Button(selectionFrame, text='XP Farm', command=lambda: [toLoadingFrame(), XpFarmConnector(), timerThread()])
 xpButton.grid(row=2, column=2)
 #Exit Button
 selectionExit = Button(selectionFrame, text="Exit", command=window.destroy)
@@ -193,12 +224,17 @@ complexExit.grid(row=2, column=3)
 
 #Loading Frame
 #WarningText
-loadingLabel = Label(loadingFrame, text="Loading...\n\nMake sure you're in\nyour Minecraft window.\n\nPress e to quit.")
+loadingLabel = Label(loadingFrame, text="Loading...")
 loadingLabel.grid(row=1, column=2)
 #Countdown
-#TODO FINISH TIMER
-loadingCount = Label(loadingFrame, text='test')
+loadingCount = Label(loadingFrame, text='')
 loadingCount.grid(row=2, column=2)
+#Minecraft window warning sign
+warningLabel = Label(loadingFrame, text="Make sure you're in your Minecraft window.")
+warningLabel.grid(row=3, column=2)
+#Quit label
+quitLabel = Label(loadingFrame, text="Press e to quit.")
+quitLabel.grid(row=4, column=2)
 
 
 #Start page
