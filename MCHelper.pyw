@@ -26,7 +26,8 @@ def ComplexCobblestoneGenerator():
         picks = complexEntry.get()
         if picks in ('1', '2', '3', '4', '5', '6', '7', '8', '9'):
             toLoadingFrame()
-            time.sleep(10)
+            timerThread()
+            time.sleep(11)
 
             i = 0
             while True:
