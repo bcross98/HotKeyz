@@ -10,4 +10,3 @@ TO RUN:
 #Where I left off:
 -Automate switching iron picks
 -Add separate function for if you have a mining speed bonus
--Add countdown timer
