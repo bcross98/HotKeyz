@@ -11,7 +11,7 @@ import os
 #
 #Simple Cobblestone Function
 #Runs infinitely
-#TODO: Detect when a pick breaks and stop the script
+#TODO: Detect when a pick breaks.
 def SimpleCobblestoneGenerator():
     time.sleep(11)
     pyautogui.mouseDown()
@@ -20,7 +20,7 @@ def SimpleCobblestoneGenerator():
 
 #Complex Cobblestone Function
 #Breaks stone and switches picks, however many you have.
-#TODO: Detect when a pick breaks, detect how many picks, detect what kind of picks, calculate how long a pick will last
+#TODO: Detect when a pick breaks, detect how many picks.
 def ComplexCobblestoneGenerator():
     while True:
         picks = complexEntry.get()
@@ -44,7 +44,7 @@ def ComplexCobblestoneGenerator():
 
 #XP farm function
 #Attacks in a 0.5 sec interval
-#TODO: detect when the weapon breaks and stop the script
+#TODO: detect when the weapon breaks.
 def XPFarm():
     time.sleep(11)
     while True:
@@ -53,6 +53,7 @@ def XPFarm():
 
 #These functions set up a second thread listening for the e key
 #TODO: make it more compact
+#IDEA: make one function and pass a value into it from the selector function/screen
 def SimpleCobblestoneListener():
     t = Thread(target=SimpleCobblestoneGenerator)
     t.daemon = True
@@ -94,6 +95,12 @@ def SimpleCobblestoneConnector():
     s.daemon = True
     s.start()
 
+#Thread to run the timer at the same time as tkinter
+def timerThread():
+    timerThread = Thread(target=timerText)
+    timerThread.daemon = True
+    timerThread.start()
+
 #Function to display a dynamic timer
 def timerText():
     i = 10
@@ -107,6 +114,10 @@ def timerText():
     loadingCount.config(text="0")
     time.sleep(1)
 
+    labelEmpty()
+
+#Function to set tkinter labels to empty
+def labelEmpty():
     #Set loadingCount to empty
     loadingCount.config(text="")
 
@@ -116,34 +127,9 @@ def timerText():
     #Set loadingLabel to empty
     loadingLabel.config(text='')
 
-#Thread to run the timer at the same time as tkinter
-def timerThread():
-    timerThread = Thread(target=timerText)
-    timerThread.daemon = True
-    timerThread.start()
+    #TODO: Move escape message to row 1
 
-
-
-#GUI
-#
-#
-#
-from tkinter import *
-
-#The window
-window = Tk()
-window.title('MC Helper')
-
-#Always on top
-window.wm_attributes('-topmost', 1)
-
-#Frame
-cobbleFrame = Frame(window)
-loadingFrame = Frame(window)
-complexFrame = Frame(window)
-selectionFrame = Frame(window)
-selectionFrame.grid()
-
+#TODO: Condense this
 #Change to Cobblestone Frame
 def toCobbleFrame():
     cobbleFrame.grid(row=0, column=0, sticky="")
@@ -171,6 +157,28 @@ def toComplexFrame():
     cobbleFrame.grid_forget()
     selectionFrame.grid_forget()
     loadingFrame.grid_forget()
+
+
+
+#GUI
+#
+#
+#
+from tkinter import *
+
+#The window
+window = Tk()
+window.title('MC Helper')
+
+#Always on top
+window.wm_attributes('-topmost', 1)
+
+#Frame
+cobbleFrame = Frame(window)
+loadingFrame = Frame(window)
+complexFrame = Frame(window)
+selectionFrame = Frame(window)
+selectionFrame.grid()
 
 #Selection Frame
 #Text
