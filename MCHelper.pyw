@@ -20,7 +20,7 @@ def SimpleCobblestoneGenerator():
 
 #Complex Cobblestone Function
 #Breaks stone and switches picks, however many you have.
-#TODO: Detect when a pick breaks, detect how many picks, detect what kind of picks, detect how long a pick will last
+#TODO: Detect when a pick breaks, detect how many picks, detect what kind of picks, calculate how long a pick will last
 def ComplexCobblestoneGenerator():
     while True:
         picks = complexEntry.get()
@@ -51,7 +51,7 @@ def XPFarm():
         pyautogui.click()
         time.sleep(0.5)
 
-#These functions set up a second thread listening for the escape key
+#These functions set up a second thread listening for the e key
 #TODO: make it more compact
 def SimpleCobblestoneListener():
     t = Thread(target=SimpleCobblestoneGenerator)
@@ -107,16 +107,13 @@ def timerText():
     loadingCount.config(text="0")
     time.sleep(1)
 
-    #TODO: Delete Label
-    #For now, we're setting it to empty
+    #Set loadingCount to empty
     loadingCount.config(text="")
 
-    #TODO: Delete label 
-    #I also want to set the "get in your minecraft window to empty"
+    #Set warningLabel to empty
     warningLabel.config(text="")
 
-    #TODO: Delete label
-    #Maybe this one too
+    #Set loadingLabel to empty
     loadingLabel.config(text='')
 
 #Thread to run the timer at the same time as tkinter
