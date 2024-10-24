@@ -5,7 +5,7 @@ from threading import Thread
 import time
 import os
 
-#Functions
+#MAIN
 #
 #
 #
@@ -51,6 +51,7 @@ def XPFarm():
         pyautogui.click()
         time.sleep(0.5)
 
+
 #These functions set up a second thread listening for the e key
 #TODO: make it more compact
 #IDEA: make one function and pass a value into it from the selector function/screen
@@ -95,11 +96,6 @@ def SimpleCobblestoneConnector():
     s.daemon = True
     s.start()
 
-#Thread to run the timer at the same time as tkinter
-def timerThread():
-    timerThread = Thread(target=timerText)
-    timerThread.daemon = True
-    timerThread.start()
 
 #Function to display a dynamic timer
 def timerText():
@@ -115,6 +111,12 @@ def timerText():
     time.sleep(1)
 
     labelEmpty()
+
+#Thread to run the timer at the same time as tkinter
+def timerThread():
+    timerThread = Thread(target=timerText)
+    timerThread.daemon = True
+    timerThread.start()
 
 #Function to set tkinter labels to empty
 def labelEmpty():
