@@ -10,3 +10,4 @@ TO RUN:
 #Where I left off:
 -Automate switching iron picks
 -Add separate function for if you have a mining speed bonus
+-Add a function that checks if the computer has pyautogui and keyboard installed
