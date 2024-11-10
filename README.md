@@ -11,3 +11,4 @@ TO RUN:
 -Automate switching iron picks
 -Add a function that checks if the computer has pyautogui and keyboard installed
 -Add sound detection for when a pick/sword/etc... breaks
+-Instead of 'e' to fully exit, 'e' to back to the main menu
