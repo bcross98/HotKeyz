@@ -8,8 +8,6 @@ TO RUN:
 4.) Restart your pc
 
 #Where I left off:
--Automate switching iron picks
--Add a function that checks if the computer has pyautogui and keyboard installed
 -Add sound detection for when a pick/sword/etc... breaks
 
 #PyInstaller
