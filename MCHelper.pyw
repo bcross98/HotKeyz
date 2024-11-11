@@ -1,3 +1,22 @@
+#Checks if the host computer has the proper packages installed
+#If not, it installs them
+def PackageCheck():
+    import os
+    
+    try:
+        import keyboard
+    except:
+        os.system("pip install keyboard")
+        import keyboard
+
+    try:
+        import pyautogui
+    except:
+        os.system("pip install pyautogui")
+        import pyautogui
+
+PackageCheck()
+
 #Imports
 import pyautogui
 import keyboard
