@@ -62,7 +62,7 @@ def SimpleCobblestoneListener():
     while True:
         if keyboard.is_pressed('e'):
             pyautogui.mouseUp()
-            os._exit(1)
+            toSelectionFrame()
 
 def ComplexCobblestoneListener():
     t = Thread(target=ComplexCobblestoneGenerator)
@@ -71,7 +71,7 @@ def ComplexCobblestoneListener():
     while True:
         if keyboard.is_pressed('e'):
             pyautogui.mouseUp()
-            os._exit(1)
+            toSelectionFrame()
 
 def XpFarmListener():
     t = Thread(target=XPFarm)
@@ -79,7 +79,7 @@ def XpFarmListener():
     t.start()
     while True:
         if keyboard.is_pressed('e'):
-            os._exit(1)
+            toSelectionFrame()
 
 def XpFarmConnector():
     s = Thread(target=XpFarmListener)
