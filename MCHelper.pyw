@@ -2,7 +2,7 @@
 #If not, it installs them
 def PackageCheck():
     import os
-    
+
     try:
         import keyboard
     except:
@@ -64,9 +64,11 @@ def ComplexCobblestoneGenerator():
 #XP farm function
 #Attacks in a 0.5 sec interval
 #TODO: detect when the weapon breaks.
+xp = True
 def XPFarm():
+    global xp
     time.sleep(11)
-    while True:
+    while xp:
         pyautogui.click()
         time.sleep(0.5)
 
@@ -81,7 +83,9 @@ def SimpleCobblestoneListener():
     while True:
         if keyboard.is_pressed('e'):
             pyautogui.mouseUp()
+            labelFull()
             toSelectionFrame()
+            break
 
 def ComplexCobblestoneListener():
     t = Thread(target=ComplexCobblestoneGenerator)
@@ -90,17 +94,26 @@ def ComplexCobblestoneListener():
     while True:
         if keyboard.is_pressed('e'):
             pyautogui.mouseUp()
+            labelFull()
             toSelectionFrame()
+            break
 
 def XpFarmListener():
+    global xp
     t = Thread(target=XPFarm)
     t.daemon = True
     t.start()
     while True:
         if keyboard.is_pressed('e'):
+            xp = False
+            t.join()
+            labelFull()
             toSelectionFrame()
+            break
 
 def XpFarmConnector():
+    global xp
+    xp = True
     s = Thread(target=XpFarmListener)
     s.daemon = True
     s.start()
@@ -136,6 +149,14 @@ def timerThread():
     timerThread = Thread(target=timerText)
     timerThread.daemon = True
     timerThread.start()
+
+#Function to set tkinter labels
+def labelFull():
+    #Set loadingCount
+    loadingLabel.config(text="Loading...")
+
+    #Set warningLabel
+    warningLabel.config(text="Make sure you're in your Minecraft window.")
 
 #Function to set tkinter labels to empty
 def labelEmpty():
