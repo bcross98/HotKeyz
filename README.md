@@ -9,6 +9,8 @@ TO RUN:
 
 #Where I left off:
 -Add sound detection for when a pick/sword/etc... breaks
+-Replace the threading functions with one simple function
+-Combine the cobblestone functions
 
 #PyInstaller
 Python3 -m PyInstaller MCHelper.pyw
