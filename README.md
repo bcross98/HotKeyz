@@ -7,7 +7,7 @@ TO RUN:
 3.) Get keyboard - in cmd type: pip install keyboard
 4.) Restart your pc
 
-#Where I left off:
+#Where I left off/What I want to do:
 -Add sound detection for when a pick/sword/etc... breaks
 -Replace the threading functions with one simple function
 -Redo Complex Cobblestone function
