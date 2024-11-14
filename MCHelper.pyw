@@ -30,7 +30,6 @@ import os
 #
 #Simple Cobblestone Function
 #Runs infinitely
-#TODO: Detect when a pick breaks.
 def SimpleCobblestoneGenerator():
     time.sleep(11)
     pyautogui.mouseDown()
@@ -39,7 +38,6 @@ def SimpleCobblestoneGenerator():
 
 #Complex Cobblestone Function
 #Breaks stone and switches picks, however many you have.
-#TODO: Detect when a pick breaks, detect how many picks.
 def ComplexCobblestoneGenerator():
     while True:
         picks = complexEntry.get()
@@ -63,7 +61,6 @@ def ComplexCobblestoneGenerator():
 
 #XP farm function
 #Attacks in a 0.5 sec interval
-#TODO: detect when the weapon breaks.
 xp = True
 def XPFarm():
     global xp
@@ -74,8 +71,6 @@ def XPFarm():
 
 
 #These functions set up a second thread listening for the e key
-#TODO: make it more compact
-#IDEA: make one function and pass a value into it from the selector function/screen
 def SimpleCobblestoneListener():
     t = Thread(target=SimpleCobblestoneGenerator)
     t.daemon = True
@@ -169,9 +164,7 @@ def labelEmpty():
     #Set loadingLabel to empty
     loadingLabel.config(text='')
 
-    #TODO: Move escape message to row 1
 
-#TODO: Condense this
 #Change to Cobblestone Frame
 def toCobbleFrame():
     cobbleFrame.grid(row=0, column=0, sticky="")

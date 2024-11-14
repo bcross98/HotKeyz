@@ -12,6 +12,8 @@ TO RUN:
 -Replace the threading functions with one simple function
 -Redo Complex Cobblestone function
 -Combine the cobblestone functions
+-Combine the listener functions/implement threading better
+-Move escape message to the top row
 
 #PyInstaller
 Python3 -m PyInstaller MCHelper.pyw
