@@ -100,10 +100,10 @@ def XpFarmListener():
     t.start()
     while True:
         if keyboard.is_pressed('e'):
-            xp = False
-            t.join()
             labelFull()
             toSelectionFrame()
+            xp = False
+            t.join()
             break
 
 def XpFarmConnector():
