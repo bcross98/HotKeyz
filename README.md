@@ -11,6 +11,7 @@ TO RUN:
 -Add sound detection for when a pick/sword/etc... breaks
 -Replace the threading functions with one simple function
 -Combine the cobblestone functions
+-Redo Complex Cobblestone function
 
 #PyInstaller
 Python3 -m PyInstaller MCHelper.pyw
