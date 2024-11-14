@@ -14,6 +14,7 @@ TO RUN:
 -Combine the cobblestone functions
 -Combine the listener functions/implement threading better
 -Move escape message to the top row
+-Add Gold Farm option that auto right clicks the Iron Golem
 
 #PyInstaller
 Python3 -m PyInstaller MCHelper.pyw
