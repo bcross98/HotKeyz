@@ -81,7 +81,7 @@ def GoldFarm():
 
 #Function to display a dynamic timer
 timer = True
-def newTimerText():
+def TimerText():
     global timer
     i = 10
     while timer:
@@ -142,7 +142,7 @@ def GoldFarmListener():
 
 def TimerListener():
     global timer
-    t = Thread(target=newTimerText)
+    t = Thread(target=TimerText)
     t.daemon = True
     t.start()
     while True:
