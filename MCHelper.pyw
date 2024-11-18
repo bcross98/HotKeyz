@@ -89,6 +89,7 @@ def TimerText():
         time.sleep(1)
         i -= 1
         if i < 0:
+            labelEmpty()
             break
 
 #These functions set up a second thread listening for the e key
