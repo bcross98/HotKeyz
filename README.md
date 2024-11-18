@@ -9,12 +9,9 @@ TO RUN:
 
 #Where I left off/What I want to do:
 -Add sound detection for when a pick/sword/etc... breaks
--Replace the threading functions with one simple function
 -Redo Complex Cobblestone function
--Combine the cobblestone functions
--Combine the listener functions/implement threading better
--Move escape message to the top row
--Add Gold Farm option that auto right clicks the Iron Golem
+-Refactor the cobblestone functions
+-Refactor the listener functions/ threading functions
 -Fix timer bug
 
 #PyInstaller

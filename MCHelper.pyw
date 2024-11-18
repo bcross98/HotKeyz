@@ -69,6 +69,15 @@ def XPFarm():
         pyautogui.click()
         time.sleep(0.5)
 
+#Gold farm function
+#Right clicks to heal the iron golem in a 0.5 sec interval
+gold = True
+def GoldFarm():
+    global gold
+    time.sleep(11)
+    while gold:
+        pyautogui.rightClick()
+        time.sleep(0.5)
 
 #These functions set up a second thread listening for the e key
 def SimpleCobblestoneListener():
@@ -105,6 +114,26 @@ def XpFarmListener():
             xp = False
             t.join()
             break
+
+def GoldFarmListener():
+    global gold
+    t = Thread(target=GoldFarm)
+    t.daemon = True
+    t.start()
+    while True:
+        if keyboard.is_pressed('e'):
+            labelFull()
+            toSelectionFrame()
+            gold = False
+            t.join()
+            break
+
+def GoldFarmConnector():
+    global gold
+    gold = True
+    s = Thread(target=GoldFarmListener)
+    s.daemon = True
+    s.start()
 
 def XpFarmConnector():
     global xp
@@ -153,6 +182,8 @@ def labelFull():
     #Set warningLabel
     warningLabel.config(text="Make sure you're in your Minecraft window.")
 
+    quitLabel.grid(row=4, column=2)
+
 #Function to set tkinter labels to empty
 def labelEmpty():
     #Set loadingCount to empty
@@ -163,6 +194,8 @@ def labelEmpty():
 
     #Set loadingLabel to empty
     loadingLabel.config(text='')
+
+    quitLabel.grid(row=1, column=2)
 
 
 #Change to Cobblestone Frame
@@ -227,8 +260,8 @@ cobbleButton.grid(row=2, column=1)
 xpButton = Button(selectionFrame, text='XP Farm', command=lambda: [toLoadingFrame(), XpFarmConnector(), timerThread()])
 xpButton.grid(row=2, column=2)
 #Exit Button
-selectionExit = Button(selectionFrame, text="Exit", command=window.destroy)
-selectionExit.grid(row=2, column=3)
+selectionGold = Button(selectionFrame, text="Gold", command=lambda: [toLoadingFrame(), GoldFarmConnector(), timerThread()])
+selectionGold.grid(row=2, column=3)
 
 #Cobble Frame
 #Text
