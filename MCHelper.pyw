@@ -43,7 +43,7 @@ def ComplexCobblestoneGenerator():
         picks = complexEntry.get()
         if picks in ('1', '2', '3', '4', '5', '6', '7', '8', '9'):
             toLoadingFrame()
-            timerThread()
+            TimerConnector()
             time.sleep(11)
 
             i = 0
@@ -78,6 +78,18 @@ def GoldFarm():
     while gold:
         pyautogui.rightClick()
         time.sleep(0.5)
+
+#Function to display a dynamic timer
+timer = True
+def newTimerText():
+    global timer
+    i = 10
+    while timer:
+        loadingCount.config(text=i)
+        time.sleep(1)
+        i -= 1
+        if i < 0:
+            break
 
 #These functions set up a second thread listening for the e key
 def SimpleCobblestoneListener():
@@ -128,6 +140,26 @@ def GoldFarmListener():
             t.join()
             break
 
+def TimerListener():
+    global timer
+    t = Thread(target=newTimerText)
+    t.daemon = True
+    t.start()
+    while True:
+        if keyboard.is_pressed('e'):
+            labelFull()
+            toSelectionFrame()
+            timer = False
+            t.join()
+            break
+
+def TimerConnector():
+    global timer
+    timer = True
+    s = Thread(target=TimerListener)
+    s.daemon = True
+    s.start()
+
 def GoldFarmConnector():
     global gold
     gold = True
@@ -152,27 +184,6 @@ def SimpleCobblestoneConnector():
     s.daemon = True
     s.start()
 
-
-#Function to display a dynamic timer
-def timerText():
-    i = 10
-    while i >= 1:
-        textTimer = i
-        loadingCount.config(text=textTimer)
-        time.sleep(1)
-        i -= 1
-    
-    #Show 0
-    loadingCount.config(text="0")
-    time.sleep(1)
-
-    labelEmpty()
-
-#Thread to run the timer at the same time as tkinter
-def timerThread():
-    timerThread = Thread(target=timerText)
-    timerThread.daemon = True
-    timerThread.start()
 
 #Function to set tkinter labels
 def labelFull():
@@ -257,10 +268,10 @@ cobbleButton = Button(selectionFrame, text='Cobblestone', command=toCobbleFrame)
 cobbleButton.grid(row=2, column=1)
 #XP Farm Button
 #todo: link to xp function
-xpButton = Button(selectionFrame, text='XP Farm', command=lambda: [toLoadingFrame(), XpFarmConnector(), timerThread()])
+xpButton = Button(selectionFrame, text='XP Farm', command=lambda: [toLoadingFrame(), XpFarmConnector(), TimerConnector()])
 xpButton.grid(row=2, column=2)
 #Exit Button
-selectionGold = Button(selectionFrame, text="Gold", command=lambda: [toLoadingFrame(), GoldFarmConnector(), timerThread()])
+selectionGold = Button(selectionFrame, text="Gold", command=lambda: [toLoadingFrame(), GoldFarmConnector(), TimerConnector()])
 selectionGold.grid(row=2, column=3)
 
 #Cobble Frame
@@ -268,7 +279,7 @@ selectionGold.grid(row=2, column=3)
 cobbleLabel = Label(cobbleFrame, text="Pick your poison.\n\n")
 cobbleLabel.grid(row=1, column=2)
 #Simple Button
-simpleCobble = Button(cobbleFrame, text="1 pick", command=lambda: [toLoadingFrame(), SimpleCobblestoneConnector(), timerThread()])
+simpleCobble = Button(cobbleFrame, text="1 pick", command=lambda: [toLoadingFrame(), SimpleCobblestoneConnector(), TimerConnector()])
 simpleCobble.grid(row=2, column=1)
 #Complex Button
 complexCobble = Button(cobbleFrame, text='Multiple picks', command=toComplexFrame)

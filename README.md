@@ -12,7 +12,6 @@ TO RUN:
 -Redo Complex Cobblestone function
 -Refactor the cobblestone functions
 -Refactor the listener functions/ threading functions
--Fix timer bug
 
 #PyInstaller
 Python3 -m PyInstaller MCHelper.pyw
