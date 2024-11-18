@@ -288,8 +288,9 @@ cobbleLabel.grid(row=1, column=2)
 simpleCobble = Button(cobbleFrame, text="1 pick", command=lambda: [toLoadingFrame(), SimpleCobblestoneConnector(), TimerConnector()])
 simpleCobble.grid(row=2, column=1)
 #Complex Button
-complexCobble = Button(cobbleFrame, text='Multiple picks', command=toComplexFrame)
-complexCobble.grid(row=2, column=2)
+#TODO: fix ComplexCobble
+#complexCobble = Button(cobbleFrame, text='Multiple picks', command=toComplexFrame)
+#complexCobble.grid(row=2, column=2)
 #Back Button
 cobbleExit = Button(cobbleFrame, text='Back', command=toSelectionFrame)
 cobbleExit.grid(row=2, column=3)
