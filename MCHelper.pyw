@@ -38,7 +38,9 @@ def SimpleCobblestoneGenerator():
 
 #Complex Cobblestone Function
 #Breaks stone and switches picks, however many you have.
-def ComplexCobblestoneGenerator():
+complex = True
+def ComplexCobble():
+    global complex
     while True:
         picks = complexEntry.get()
         if picks in ('1', '2', '3', '4', '5', '6', '7', '8', '9'):
@@ -47,7 +49,7 @@ def ComplexCobblestoneGenerator():
             time.sleep(11)
 
             i = 0
-            while True:
+            while complex:
                 pyautogui.press(str(i + 1))
                 time.sleep(0.5)
                 pyautogui.mouseDown()
@@ -55,9 +57,7 @@ def ComplexCobblestoneGenerator():
                 i = i + 1
                 if i == int(picks):
                     pyautogui.mouseUp()
-                    os.system('cls||clear')
-                    os._exit(1)
-
+                    break
 
 #XP farm function
 #Attacks in a 0.5 sec interval
@@ -105,7 +105,8 @@ def SimpleCobblestoneListener():
             break
 
 def ComplexCobblestoneListener():
-    t = Thread(target=ComplexCobblestoneGenerator)
+    global cobble
+    t = Thread(target=ComplexCobble)
     t.daemon = True
     t.start()
     while True:
@@ -113,6 +114,8 @@ def ComplexCobblestoneListener():
             pyautogui.mouseUp()
             labelFull()
             toSelectionFrame()
+            cobble = False
+            t.join()
             break
 
 def XpFarmListener():
@@ -176,6 +179,8 @@ def XpFarmConnector():
     s.start()
 
 def ComplexCobblestoneConnector():
+    global cobble
+    cobble = True
     s = Thread(target=ComplexCobblestoneListener)
     s.daemon = True
     s.start()
