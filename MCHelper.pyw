@@ -28,6 +28,17 @@ import os
 #
 #
 #
+#Auto Walk Function
+#Runs infinitely
+walk = True
+def AutoWalk():
+    global walk
+    time.sleep(11)
+    while walk:
+        pyautogui.keyDown('w')
+        time.sleep(0.5)
+    
+
 #Simple Cobblestone Function
 #Runs infinitely
 def SimpleCobblestoneGenerator():
@@ -93,15 +104,18 @@ def TimerText():
             break
 
 #These functions set up a second thread listening for the e key
-def SimpleCobblestoneListener():
-    t = Thread(target=SimpleCobblestoneGenerator)
+def AutoWalkListener():
+    global walk
+    t = Thread(target=AutoWalk)
     t.daemon = True
     t.start()
     while True:
         if keyboard.is_pressed('e'):
-            pyautogui.mouseUp()
+            pyautogui.keyUp('w')
             labelFull()
             toSelectionFrame()
+            walk = False
+            t.join()
             break
 
 def ComplexCobblestoneListener():
@@ -157,6 +171,13 @@ def TimerListener():
             t.join()
             break
 
+def AutoWalkConnector():
+    global walk
+    walk = True
+    s = Thread(target=AutoWalkListener)
+    s.daemon = True
+    s.start()
+
 def TimerConnector():
     global timer
     timer = True
@@ -182,11 +203,6 @@ def ComplexCobblestoneConnector():
     global cobble
     cobble = True
     s = Thread(target=ComplexCobblestoneListener)
-    s.daemon = True
-    s.start()
-
-def SimpleCobblestoneConnector():
-    s = Thread(target=SimpleCobblestoneListener)
     s.daemon = True
     s.start()
 
@@ -271,21 +287,23 @@ selectionLabel = Label(selectionFrame, text="Pick your poison.\n\n")
 selectionLabel.grid(row=1, column=2)
 #Cobblestone Button
 cobbleButton = Button(selectionFrame, text='Cobblestone', command=toCobbleFrame)
-cobbleButton.grid(row=2, column=1)
+cobbleButton.grid(row=2, column=1, padx=10)
 #XP Farm Button
-#todo: link to xp function
 xpButton = Button(selectionFrame, text='XP Farm', command=lambda: [toLoadingFrame(), XpFarmConnector(), TimerConnector()])
-xpButton.grid(row=2, column=2)
-#Exit Button
+xpButton.grid(row=2, column=2, padx=10)
+#Auto Walk Button
+walkButton = Button(selectionFrame, text='Auto Walk', command=lambda: [toLoadingFrame(), AutoWalkConnector(), TimerConnector()])
+walkButton.grid(row=2, column=3, padx=10)
+#Gold Button
 selectionGold = Button(selectionFrame, text="Gold", command=lambda: [toLoadingFrame(), GoldFarmConnector(), TimerConnector()])
-selectionGold.grid(row=2, column=3)
+selectionGold.grid(row=2, column=4, padx=10)
 
 #Cobble Frame
 #Text
 cobbleLabel = Label(cobbleFrame, text="Pick your poison.\n\n")
 cobbleLabel.grid(row=1, column=2)
 #Simple Button
-simpleCobble = Button(cobbleFrame, text="1 pick", command=lambda: [toLoadingFrame(), SimpleCobblestoneConnector(), TimerConnector()])
+simpleCobble = Button(cobbleFrame, text="1 pick", command=lambda: [toLoadingFrame(), TimerConnector()])
 simpleCobble.grid(row=2, column=1)
 #Complex Button
 #TODO: fix ComplexCobble
