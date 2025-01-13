@@ -40,11 +40,12 @@ def AutoWalk():
     
 
 #Simple Cobblestone Function
-#Runs infinitely
+simple = True
 def SimpleCobblestoneGenerator():
+    global simple
     time.sleep(11)
-    pyautogui.mouseDown()
-    time.sleep(188)
+    while simple:
+        pyautogui.mouseDown()
 
 
 #Complex Cobblestone Function
@@ -119,7 +120,7 @@ def AutoWalkListener():
             break
 
 def ComplexCobblestoneListener():
-    global cobble
+    global complex
     t = Thread(target=ComplexCobble)
     t.daemon = True
     t.start()
@@ -128,7 +129,21 @@ def ComplexCobblestoneListener():
             pyautogui.mouseUp()
             labelFull()
             toSelectionFrame()
-            cobble = False
+            complex = False
+            t.join()
+            break
+
+def SimpleCobblestoneListener():
+    global simple
+    t = Thread(target=SimpleCobblestoneGenerator)
+    t.daemon = True
+    t.start()
+    while True:
+        if keyboard.is_pressed('e'):
+            pyautogui.mouseUp()
+            labelFull()
+            toSelectionFrame()
+            simple = False
             t.join()
             break
 
@@ -200,9 +215,16 @@ def XpFarmConnector():
     s.start()
 
 def ComplexCobblestoneConnector():
-    global cobble
-    cobble = True
+    global complex
+    complex = True
     s = Thread(target=ComplexCobblestoneListener)
+    s.daemon = True
+    s.start()
+
+def SimpleCobblestoneConnector():
+    global simple
+    simple = True
+    s = Thread(target=SimpleCobblestoneListener)
     s.daemon = True
     s.start()
 
@@ -303,7 +325,7 @@ selectionGold.grid(row=2, column=4, padx=10)
 cobbleLabel = Label(cobbleFrame, text="Pick your poison.\n\n")
 cobbleLabel.grid(row=1, column=2)
 #Simple Button
-simpleCobble = Button(cobbleFrame, text="1 pick", command=lambda: [toLoadingFrame(), TimerConnector()])
+simpleCobble = Button(cobbleFrame, text="1 pick", command=lambda: [toLoadingFrame(), SimpleCobblestoneConnector(),TimerConnector()])
 simpleCobble.grid(row=2, column=1)
 #Complex Button
 #TODO: fix ComplexCobble
