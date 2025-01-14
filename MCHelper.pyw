@@ -40,11 +40,11 @@ def AutoWalk():
     
 
 #Simple Cobblestone Function
-simple = True
-def SimpleCobblestoneGenerator():
-    global simple
+cobble = True
+def cobblestoneGenerator():
+    global cobble
     time.sleep(11)
-    while simple:
+    while cobble:
         pyautogui.mouseDown()
 
 #XP farm function
@@ -95,9 +95,9 @@ def AutoWalkListener():
             t.join()
             break
 
-def SimpleCobblestoneListener():
-    global simple
-    t = Thread(target=SimpleCobblestoneGenerator)
+def cobblestoneListener():
+    global cobble
+    t = Thread(target=cobblestoneGenerator)
     t.daemon = True
     t.start()
     while True:
@@ -105,7 +105,7 @@ def SimpleCobblestoneListener():
             pyautogui.mouseUp()
             labelFull()
             toSelectionFrame()
-            simple = False
+            cobble = False
             t.join()
             break
 
@@ -176,10 +176,10 @@ def XpFarmConnector():
     s.daemon = True
     s.start()
 
-def SimpleCobblestoneConnector():
-    global simple
-    simple = True
-    s = Thread(target=SimpleCobblestoneListener)
+def cobblestoneConnector():
+    global cobble
+    cobble = True
+    s = Thread(target=cobblestoneListener)
     s.daemon = True
     s.start()
 
@@ -211,16 +211,12 @@ def labelEmpty():
 #Change to Selection Frame
 def toSelectionFrame():
     selectionFrame.grid(row=0, column=0, sticky="")
-    cobbleFrame.grid_forget()
     loadingFrame.grid_forget()
-    complexFrame.grid_forget()
 
 #Change to Loading Frame.
 def toLoadingFrame():
     loadingFrame.grid(row=0, column=0, sticky="")
-    cobbleFrame.grid_forget()
     selectionFrame.grid_forget()
-    complexFrame.grid_forget()
 
 
 
@@ -238,9 +234,7 @@ window.title('MC Helper')
 window.wm_attributes('-topmost', 1)
 
 #Frame
-cobbleFrame = Frame(window)
 loadingFrame = Frame(window)
-complexFrame = Frame(window)
 selectionFrame = Frame(window)
 selectionFrame.grid()
 
@@ -249,7 +243,7 @@ selectionFrame.grid()
 selectionLabel = Label(selectionFrame, text="Pick your poison.\n\n")
 selectionLabel.grid(row=1, column=2)
 #Cobblestone Button
-cobbleButton = Button(selectionFrame, text='Cobblestone', command=lambda: [toLoadingFrame(), SimpleCobblestoneConnector(), TimerConnector()])
+cobbleButton = Button(selectionFrame, text='Cobblestone', command=lambda: [toLoadingFrame(), cobblestoneConnector(), TimerConnector()])
 cobbleButton.grid(row=2, column=1, padx=10)
 #XP Farm Button
 xpButton = Button(selectionFrame, text='XP Farm', command=lambda: [toLoadingFrame(), XpFarmConnector(), TimerConnector()])
