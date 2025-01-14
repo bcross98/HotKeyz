@@ -47,30 +47,6 @@ def SimpleCobblestoneGenerator():
     while simple:
         pyautogui.mouseDown()
 
-
-#Complex Cobblestone Function
-#Breaks stone and switches picks, however many you have.
-complex = True
-def ComplexCobble():
-    global complex
-    while True:
-        picks = complexEntry.get()
-        if picks in ('1', '2', '3', '4', '5', '6', '7', '8', '9'):
-            toLoadingFrame()
-            TimerConnector()
-            time.sleep(11)
-
-            i = 0
-            while complex:
-                pyautogui.press(str(i + 1))
-                time.sleep(0.5)
-                pyautogui.mouseDown()
-                time.sleep(188)
-                i = i + 1
-                if i == int(picks):
-                    pyautogui.mouseUp()
-                    break
-
 #XP farm function
 #Attacks in a 0.5 sec interval
 xp = True
@@ -116,20 +92,6 @@ def AutoWalkListener():
             labelFull()
             toSelectionFrame()
             walk = False
-            t.join()
-            break
-
-def ComplexCobblestoneListener():
-    global complex
-    t = Thread(target=ComplexCobble)
-    t.daemon = True
-    t.start()
-    while True:
-        if keyboard.is_pressed('e'):
-            pyautogui.mouseUp()
-            labelFull()
-            toSelectionFrame()
-            complex = False
             t.join()
             break
 
@@ -214,13 +176,6 @@ def XpFarmConnector():
     s.daemon = True
     s.start()
 
-def ComplexCobblestoneConnector():
-    global complex
-    complex = True
-    s = Thread(target=ComplexCobblestoneListener)
-    s.daemon = True
-    s.start()
-
 def SimpleCobblestoneConnector():
     global simple
     simple = True
@@ -253,13 +208,6 @@ def labelEmpty():
     quitLabel.grid(row=1, column=2)
 
 
-#Change to Cobblestone Frame
-def toCobbleFrame():
-    cobbleFrame.grid(row=0, column=0, sticky="")
-    selectionFrame.grid_forget()
-    loadingFrame.grid_forget()
-    complexFrame.grid_forget()
-
 #Change to Selection Frame
 def toSelectionFrame():
     selectionFrame.grid(row=0, column=0, sticky="")
@@ -273,13 +221,6 @@ def toLoadingFrame():
     cobbleFrame.grid_forget()
     selectionFrame.grid_forget()
     complexFrame.grid_forget()
-
-#Change to Complex Frame.
-def toComplexFrame():
-    complexFrame.grid(row=0, column=0, sticky="")
-    cobbleFrame.grid_forget()
-    selectionFrame.grid_forget()
-    loadingFrame.grid_forget()
 
 
 
@@ -308,7 +249,7 @@ selectionFrame.grid()
 selectionLabel = Label(selectionFrame, text="Pick your poison.\n\n")
 selectionLabel.grid(row=1, column=2)
 #Cobblestone Button
-cobbleButton = Button(selectionFrame, text='Cobblestone', command=toCobbleFrame)
+cobbleButton = Button(selectionFrame, text='Cobblestone', command=lambda: [toLoadingFrame(), SimpleCobblestoneConnector(), TimerConnector()])
 cobbleButton.grid(row=2, column=1, padx=10)
 #XP Farm Button
 xpButton = Button(selectionFrame, text='XP Farm', command=lambda: [toLoadingFrame(), XpFarmConnector(), TimerConnector()])
@@ -319,35 +260,6 @@ walkButton.grid(row=2, column=3, padx=10)
 #Gold Button
 selectionGold = Button(selectionFrame, text="Gold", command=lambda: [toLoadingFrame(), GoldFarmConnector(), TimerConnector()])
 selectionGold.grid(row=2, column=4, padx=10)
-
-#Cobble Frame
-#Text
-cobbleLabel = Label(cobbleFrame, text="Pick your poison.\n\n")
-cobbleLabel.grid(row=1, column=2)
-#Simple Button
-simpleCobble = Button(cobbleFrame, text="1 pick", command=lambda: [toLoadingFrame(), SimpleCobblestoneConnector(),TimerConnector()])
-simpleCobble.grid(row=2, column=1)
-#Complex Button
-#TODO: fix ComplexCobble
-#complexCobble = Button(cobbleFrame, text='Multiple picks', command=toComplexFrame)
-#complexCobble.grid(row=2, column=2)
-#Back Button
-cobbleExit = Button(cobbleFrame, text='Back', command=toSelectionFrame)
-cobbleExit.grid(row=2, column=3)
-
-#Complex Cobble Frame
-#Text
-complexLabel = Label(complexFrame, text='How many Iron Picks?\n\n')
-complexLabel.grid(row=1, column=2)
-#Entry
-complexEntry = Entry(complexFrame)
-complexEntry.grid(row=2, column=1)
-#Enter Button
-complexButton = Button(complexFrame, text="Enter", command=ComplexCobblestoneConnector)
-complexButton.grid(row=2, column=2)
-#Back Button
-complexExit = Button(complexFrame, text='Back', command=toCobbleFrame)
-complexExit.grid(row=2, column=3)
 
 #Loading Frame
 #WarningText

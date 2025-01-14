@@ -7,7 +7,6 @@ WHAT I DO:
 
 #Where I left off/What I want to do:
 -Add sound detection for when a pick/sword/etc... breaks
--Redo complex cobblestone function
 
 #PyInstaller
 Python3 -m PyInstaller MCHelper.pyw
