@@ -266,7 +266,7 @@ from tkinter import *
 
 #The window
 window = Tk()
-window.title('HotKeyz')
+window.title('')
 
 #Always on top
 window.wm_attributes('-topmost', 1)
@@ -280,7 +280,7 @@ selectionFrame.grid()
 
 #Selection Frame
 #Text
-selectionLabel = Label(selectionFrame, text="Pick your poison.")
+selectionLabel = Label(selectionFrame, text="HotKeyz.")
 selectionLabel.grid(row=1, column=2, pady=10)
 #Mouse Button
 mouseButton = Button(selectionFrame, text='Mouse keys', command=toMouseFrame)
@@ -290,20 +290,14 @@ keyboardButton = Button(selectionFrame, text='Keyboard keys', command=toKeyboard
 keyboardButton.grid(row=2, column=3, padx=5, pady=5)
 
 #Keyboard Frame
-#Text
-keyboardLabel = Label(keyboardFrame, text='Pick your poison.')
-keyboardLabel.grid(row=1, column=2)
 #w key
 wKeyLabel = Button(keyboardFrame, text='w key', command=lambda:[toLoadingFrame(), wKeyConnector(), timerConnector()])
-wKeyLabel.grid(row=2, column=1, pady=10)
+wKeyLabel.grid(row=2, column=1)
 #Keyboard back
 keyboardBack = Button(keyboardFrame, text='Back', command=toSelectionFrame)
-keyboardBack.grid(row=3, column=3)
+keyboardBack.grid(row=1, column=2)
 
 #Mouse Frame
-#Text
-mouseLabel = Label(mouseFrame, text='Pick your poison.')
-mouseLabel.grid(row=1, column=2, pady=10)
 #Right Hold
 rHoldLabel = Button(mouseFrame, text='R hold', command=lambda:[toLoadingFrame(), rHoldConnector(), timerConnector()])
 rHoldLabel.grid(row=2, column=3, padx=5, pady=5)
@@ -318,7 +312,7 @@ lClickLabel = Button(mouseFrame, text='L click', command=lambda:[toLoadingFrame(
 lClickLabel.grid(row=3, column=1, padx=5, pady=5)
 #Back button
 mouseBack = Button(mouseFrame, text='Back', command=toSelectionFrame)
-mouseBack.grid(row=4, column=3, pady=10)
+mouseBack.grid(row=1, column=1, pady=10)
 
 #Loading Frame
 #Warning Text
