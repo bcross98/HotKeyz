@@ -269,6 +269,5 @@ warningLabel.grid(row=3, column=2)
 quitLabel = Label(loadingFrame, text="Press e to quit.")
 quitLabel.grid(row=4, column=2)
 
-
 #Start page
 window.mainloop()
