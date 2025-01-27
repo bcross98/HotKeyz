@@ -28,55 +28,58 @@ import os
 #
 #
 #
+connector = True
+
 #W key Function
-wKey = True
 def wKeyFunction():
-    global wKey
+    global connector
     time.sleep(6)
-    while wKey:
+    while connector:
         pyautogui.keyDown('w')
         time.sleep(0.5)
 
 #Right click and hold function
-rHold = True
 def rHoldFunction():
-    global rHold
+    global connector
     time.sleep(6)
-    while rHold:
+    while connector:
         pyautogui.mouseDown(button='right')
 
-#Right click function
-rClick = True
+#Right click and hold function
 def rClickFunction():
-    global rClick
+    global connector
     time.sleep(6)
-    while rClick:
+    while connector:
         pyautogui.rightClick()
         time.sleep(0.5)
 
 #Left click and hold function
-lHold = True
 def lHoldFunction():
-    global lHold
+    global connector
     time.sleep(6)
-    while lHold:
+    while connector:
         pyautogui.mouseDown(button='left')
 
 #Left click function
-lClick = True
 def lClickFunction():
-    global lClick
+    global connector
     time.sleep(6)
-    while lClick:
+    while connector:
         pyautogui.leftClick()
-        time.sleep(0.5)
+
+#Reset all keys
+#TODO: Properly reset the mouse down and hold functions
+def resetKeys():
+    pyautogui.keyUp('w')
+    #Not 100% sure these actually work yet
+    pyautogui.mouseUp(button='right')
+    pyautogui.mouseUp(button='left')
 
 #Timer function
-timer = True
 def TimerText():
-    global timer
+    global connector
     i = 5
-    while timer:
+    while connector:
         loadingCount.config(text=i)
         time.sleep(1)
         i -= 1
@@ -84,77 +87,35 @@ def TimerText():
             labelEmpty()
             break
 
+#Array of functions
+mainFunctions = [wKeyFunction, rHoldFunction, rClickFunction, lHoldFunction, lClickFunction]
+
 #THREADING FUNCTIONS
-#TODO: refactor this mess
 #
 #
 #
-def wKeyListener():
-    global wKey
-    t = Thread(target=wKeyFunction)
+def listenerFunction(whatFunction):
+    global connector
+    t = Thread(target=mainFunctions[whatFunction])
     t.daemon = True
     t.start()
     while True:
         if keyboard.is_pressed('e'):
-            pyautogui.keyUp('w')
+            resetKeys()
             labelFull()
             toSelectionFrame()
-            wKey = False
+            connector = False
             t.join()
             break
 
-def rHoldListener():
-    global rHold
-    t = Thread(target=rHoldFunction)
-    t.daemon = True
-    t.start()
-    while True:
-        if keyboard.is_pressed('e'):
-            labelFull()
-            toSelectionFrame()
-            rHold = False
-            t.join()
-            break
+def connectorFunction(whatFunction):
+    global connector
+    connector = True
+    s = Thread(target=listenerFunction, args=(whatFunction,))
+    s.daemon = True
+    s.start()
 
-def rClickListener():
-    global rClick
-    t = Thread(target=lClickFunction)
-    t.daemon = True
-    t.start()
-    while True:
-        if keyboard.is_pressed('e'):
-            labelFull()
-            toSelectionFrame()
-            rClick = False
-            t.join()
-            break
-
-def lHoldListener():
-    global lHold
-    t = Thread(target=lHoldFunction)
-    t.daemon = True
-    t.start()
-    while True:
-        if keyboard.is_pressed('e'):
-            labelFull()
-            toSelectionFrame()
-            lHold = False
-            t.join()
-            break
-
-def lClickListener():
-    global lClick
-    t = Thread(target=lClickFunction)
-    t.daemon = True
-    t.start()
-    while True:
-        if keyboard.is_pressed('e'):
-            labelFull()
-            toSelectionFrame()
-            lClick = False
-            t.join()
-            break
-
+#TODO: figure out how to better implement multiple threads at the same time
 def timerListener():
     global timer
     t = Thread(target=TimerText)
@@ -168,46 +129,6 @@ def timerListener():
             t.join()
             break
 
-#THREADS TO RUN TKINTER AT THE SAME TIME AS THE MAIN FUNCTIONS
-#TODO: refactor this mess
-#
-#
-#
-def wKeyConnector():
-    global wKey
-    wKey = True
-    s = Thread(target=wKeyListener)
-    s.daemon = True
-    s.start()
-
-def rHoldConnector():
-    global rHold
-    rHold = True
-    s = Thread(target=rHoldListener)
-    s.daemon = True
-    s.start()
-
-def rClickConnector():
-    global rClick
-    rClick = True
-    s = Thread(target=rClickListener)
-    s.daemon = True
-    s.start()
-
-def lHoldConnector():
-    global lHold
-    lHold = True
-    s = Thread(target=lHoldListener)
-    s.daemon = True
-    s.start()
-
-def lClickConnector():
-    global lClick
-    lClick = True
-    s = Thread(target=lClickListener)
-    s.daemon = True
-    s.start()
-
 def timerConnector():
     global timer
     timer = True
@@ -215,7 +136,7 @@ def timerConnector():
     s.daemon = True
     s.start()
 
-#Assorted Tkinter functions
+#ASSORTED TKINTER FUNCTIONS
 #
 #
 #
@@ -300,7 +221,7 @@ keyboardButton.grid(row=2, column=3, padx=5, pady=5)
 
 #Keyboard Frame
 #w key
-wKeyLabel = Button(keyboardFrame, text='w key', command=lambda:[toLoadingFrame(), wKeyConnector(), timerConnector()])
+wKeyLabel = Button(keyboardFrame, text='w key', command=lambda:[toLoadingFrame(), timerConnector(), connectorFunction(0)])
 wKeyLabel.grid(row=2, column=1)
 #Keyboard back
 keyboardBack = Button(keyboardFrame, text='Back', command=toSelectionFrame)
@@ -308,16 +229,16 @@ keyboardBack.grid(row=1, column=2)
 
 #Mouse Frame
 #Right Hold
-rHoldLabel = Button(mouseFrame, text='R hold', command=lambda:[toLoadingFrame(), rHoldConnector(), timerConnector()])
+rHoldLabel = Button(mouseFrame, text='R hold', command=lambda:[toLoadingFrame(), timerConnector(), connectorFunction(1)])
 rHoldLabel.grid(row=2, column=3, padx=5, pady=5)
 #Right Click
-rClickLabel = Button(mouseFrame, text='R click', command=lambda:[toLoadingFrame(), rClickConnector(), timerConnector()])
+rClickLabel = Button(mouseFrame, text='R click', command=lambda:[toLoadingFrame(), timerConnector(), connectorFunction(2)])
 rClickLabel.grid(row=3, column=3, padx=5, pady=5)
 #Left Hold
-lHoldLabel = Button(mouseFrame, text='L hold', command=lambda:[toLoadingFrame(), lHoldConnector(), timerConnector()])
+lHoldLabel = Button(mouseFrame, text='L hold', command=lambda:[toLoadingFrame(), timerConnector(), connectorFunction(3)])
 lHoldLabel.grid(row=2, column=1, padx=5, pady=5)
 #Left Click
-lClickLabel = Button(mouseFrame, text='L click', command=lambda:[toLoadingFrame(), lClickConnector(), timerConnector()])
+lClickLabel = Button(mouseFrame, text='L click', command=lambda:[toLoadingFrame(), timerConnector(), connectorFunction(4)])
 lClickLabel.grid(row=3, column=1, padx=5, pady=5)
 #Back button
 mouseBack = Button(mouseFrame, text='Back', command=toSelectionFrame)
