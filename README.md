@@ -2,9 +2,9 @@
 
 #Where I left off/What I want to do:
 -Add more keys
--Refactor threads
+-implement better multi-threading
 -Make sure it's functional on linux
--Fix rHold (doesn't release key)
+-Fix both lHold and rHold
 
 #PyInstaller
 Python3 -m PyInstaller MCHelper.pyw
