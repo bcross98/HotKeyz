@@ -1,5 +1,10 @@
+#IMPORTS
+#
+#
+#
 #Checks if the host computer has the proper packages installed
 #If not, it installs them
+#TODO: probably get rid of this, this can't be a good way to do this
 def PackageCheck():
     import os
 
@@ -16,13 +21,12 @@ def PackageCheck():
         import pyautogui
 
 PackageCheck()
-
-#Imports
 import pyautogui
 import keyboard
 from threading import Thread
 import time
 import os
+
 
 #MAIN FUNCTIONS
 #
@@ -90,6 +94,7 @@ def TimerText():
 #Array of functions
 mainFunctions = [wKeyFunction, rHoldFunction, rClickFunction, lHoldFunction, lClickFunction]
 
+
 #THREADING FUNCTIONS
 #
 #
@@ -135,6 +140,7 @@ def timerConnector():
     s = Thread(target=timerListener)
     s.daemon = True
     s.start()
+
 
 #ASSORTED TKINTER FUNCTIONS
 #
@@ -187,6 +193,7 @@ def toKeyboardFrame():
     mouseFrame.grid_forget()
     loadingFrame.grid_forget()
     selectionFrame.grid_forget()
+
 
 #TKINTER GUI
 #
