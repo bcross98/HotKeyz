@@ -24,7 +24,7 @@ from threading import Thread
 import time
 import os
 
-#MAIN
+#MAIN FUNCTIONS
 #
 #
 #
@@ -84,8 +84,11 @@ def TimerText():
             labelEmpty()
             break
 
-#Threads to quit action
-#TODO: refactor this jumble of mess
+#THREADING FUNCTIONS
+#TODO: refactor this mess
+#
+#
+#
 def wKeyListener():
     global wKey
     t = Thread(target=wKeyFunction)
@@ -165,8 +168,11 @@ def timerListener():
             t.join()
             break
 
-#Connector threads to run tkinter at the same time as the listener and function
-#TODO: refactor this mess also
+#THREADS TO RUN TKINTER AT THE SAME TIME AS THE MAIN FUNCTIONS
+#TODO: refactor this mess
+#
+#
+#
 def wKeyConnector():
     global wKey
     wKey = True
@@ -210,6 +216,9 @@ def timerConnector():
     s.start()
 
 #Assorted Tkinter functions
+#
+#
+#
 #Function to set tkinter labels
 def labelFull():
     #Set loadingCount
