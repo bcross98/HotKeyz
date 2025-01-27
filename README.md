@@ -7,4 +7,4 @@
 -Fix both lHold and rHold
 
 #PyInstaller
-Python3 -m PyInstaller MCHelper.pyw
+Python3 -m PyInstaller HotKeyz.pyw
