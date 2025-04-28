@@ -25,7 +25,6 @@ import pyautogui
 import keyboard
 from threading import Thread
 import time
-import os
 
 
 #MAIN FUNCTIONS
