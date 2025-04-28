@@ -50,6 +50,14 @@ def spaceKeyFunction():
         pyautogui.keyDown('space')
         time.sleep(0.5)
 
+#C key Function
+def cKeyFunction():
+    global connector
+    time.sleep(6)
+    while connector:
+        pyautogui.keyDown('c')
+        time.sleep(0.5)
+
 #Right click and hold function
 def rHoldFunction():
     global connector
@@ -100,7 +108,7 @@ def TimerText():
             break
 
 #Array of functions
-mainFunctions = [wKeyFunction, rHoldFunction, rClickFunction, lHoldFunction, lClickFunction, spaceKeyFunction]
+mainFunctions = [wKeyFunction, rHoldFunction, rClickFunction, lHoldFunction, lClickFunction, spaceKeyFunction, cKeyFunction]
 
 
 #THREADING FUNCTIONS
@@ -241,9 +249,12 @@ wKeyLabel.grid(row=1, column=1)
 #space key
 spaceKeyLabel = Button(keyboardFrame, text='space key', command=lambda:[toLoadingFrame(), timerConnector(), connectorFunction(5)])
 spaceKeyLabel.grid(row=1, column=3)
+#c key
+cKeyLabel = Button(keyboardFrame, text='c key', command=lambda:[toLoadingFrame(), timerConnector(), connectorFunction(6)])
+cKeyLabel.grid(row=2, column=1)
 #Keyboard back
 keyboardBack = Button(keyboardFrame, text='Back', command=toSelectionFrame)
-keyboardBack.grid(row=2, column=2)
+keyboardBack.grid(row=2, column=3)
 
 #Mouse Frame
 #Right Hold
