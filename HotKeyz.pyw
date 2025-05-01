@@ -26,36 +26,20 @@ import keyboard
 from threading import Thread
 import time
 
-
 #MAIN FUNCTIONS
-#
-#
-#
 connector = True
 
-#W key Function
-def wKeyFunction():
+#Keyboard Key Selector Function(names are hard)
+def keyboardKeySelector():
     global connector
-    time.sleep(6)
-    while connector:
-        pyautogui.keyDown('w')
-        time.sleep(0.5)
+    keyPressed = keyboard.read_event(suppress=True)
 
-#Space key Function
-def spaceKeyFunction():
-    global connector
-    time.sleep(6)
-    while connector:
-        pyautogui.keyDown('space')
-        time.sleep(0.5)
-
-#C key Function
-def cKeyFunction():
-    global connector
-    time.sleep(6)
-    while connector:
-        pyautogui.keyDown('c')
-        time.sleep(0.5)
+    if keyPressed.event_type == keyboard.KEY_DOWN:
+        toLoadingFrame()
+        time.sleep(6)
+        while connector:
+            pyautogui.keyDown(keyPressed.name)
+            time.sleep(0.5)
 
 #Right click and hold function
 def rHoldFunction():
@@ -107,8 +91,7 @@ def TimerText():
             break
 
 #Array of functions
-mainFunctions = [wKeyFunction, rHoldFunction, rClickFunction, lHoldFunction, lClickFunction, spaceKeyFunction, cKeyFunction]
-
+mainFunctions = [rHoldFunction, rClickFunction, lHoldFunction, lClickFunction, keyboardKeySelector]
 
 #THREADING FUNCTIONS
 #
@@ -155,7 +138,6 @@ def timerConnector():
     s = Thread(target=timerListener)
     s.daemon = True
     s.start()
-
 
 #ASSORTED TKINTER FUNCTIONS
 #
@@ -238,22 +220,16 @@ selectionLabel.grid(row=1, column=2, pady=10)
 mouseButton = Button(selectionFrame, text='Mouse keys', command=toMouseFrame)
 mouseButton.grid(row=2, column=1, padx=5, pady=5)
 #Keyboard Button
-keyboardButton = Button(selectionFrame, text='Keyboard keys', command=toKeyboardFrame)
+keyboardButton = Button(selectionFrame, text='Keyboard keys', command=lambda:[toKeyboardFrame(), connectorFunction(4)])
 keyboardButton.grid(row=2, column=3, padx=5, pady=5)
 
 #Keyboard Frame
-#w key
-wKeyLabel = Button(keyboardFrame, text='w key', command=lambda:[toLoadingFrame(), timerConnector(), connectorFunction(0)])
-wKeyLabel.grid(row=1, column=1)
-#space key
-spaceKeyLabel = Button(keyboardFrame, text='space key', command=lambda:[toLoadingFrame(), timerConnector(), connectorFunction(5)])
-spaceKeyLabel.grid(row=1, column=3)
-#c key
-cKeyLabel = Button(keyboardFrame, text='c key', command=lambda:[toLoadingFrame(), timerConnector(), connectorFunction(6)])
-cKeyLabel.grid(row=2, column=1)
+#Select key text
+selectKey = Label(keyboardFrame, text='Press a key!')
+selectKey.grid(row=1, column=2)
 #Keyboard back
 keyboardBack = Button(keyboardFrame, text='Back', command=toSelectionFrame)
-keyboardBack.grid(row=2, column=3)
+keyboardBack.grid(row=2, column=1)
 
 #Mouse Frame
 #Right Hold
@@ -280,7 +256,7 @@ loadingLabel.grid(row=1, column=2)
 loadingCount = Label(loadingFrame, text='')
 loadingCount.grid(row=2, column=2)
 #Game window warning sign
-warningLabel = Label(loadingFrame, text="Make sure you're in your game window.")
+warningLabel = Label(loadingFrame, text="Make sure you're in your program window.")
 warningLabel.grid(row=3, column=2)
 #Quit label
 quitLabel = Label(loadingFrame, text='Press e to quit.')
