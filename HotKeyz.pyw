@@ -36,6 +36,7 @@ def keyboardKeySelector():
 
     if keyPressed.event_type == keyboard.KEY_DOWN:
         toLoadingFrame()
+        timerConnector()
         time.sleep(6)
         while connector:
             pyautogui.keyDown(keyPressed.name)
@@ -229,7 +230,7 @@ selectKey = Label(keyboardFrame, text='Press a key!')
 selectKey.grid(row=1, column=2)
 #Keyboard back
 keyboardBack = Button(keyboardFrame, text='Back', command=toSelectionFrame)
-keyboardBack.grid(row=2, column=1)
+keyboardBack.grid(row=2, column=3)
 
 #Mouse Frame
 #Right Hold
