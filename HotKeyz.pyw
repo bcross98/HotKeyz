@@ -36,7 +36,7 @@ def keyboardKeySelector():
 
     if keyPressed.event_type == keyboard.KEY_DOWN:
         toLoadingFrame()
-        timerConnector()
+        connectorFunction(5)
         time.sleep(6)
         while connector:
             pyautogui.keyDown(keyPressed.name)
@@ -92,7 +92,8 @@ def TimerText():
             break
 
 #Array of functions
-mainFunctions = [rHoldFunction, rClickFunction, lHoldFunction, lClickFunction, keyboardKeySelector]
+mainFunctions = [rHoldFunction, rClickFunction, lHoldFunction, lClickFunction, keyboardKeySelector, TimerText]
+
 
 #THREADING FUNCTIONS
 #
@@ -119,26 +120,6 @@ def connectorFunction(whatFunction):
     s.daemon = True
     s.start()
 
-#TODO: figure out how to better implement multiple threads at the same time
-def timerListener():
-    global timer
-    t = Thread(target=TimerText)
-    t.daemon = True
-    t.start()
-    while True:
-        if keyboard.is_pressed('e'):
-            labelFull()
-            toSelectionFrame()
-            timer = False
-            t.join()
-            break
-
-def timerConnector():
-    global timer
-    timer = True
-    s = Thread(target=timerListener)
-    s.daemon = True
-    s.start()
 
 #ASSORTED TKINTER FUNCTIONS
 #
@@ -234,16 +215,16 @@ keyboardBack.grid(row=2, column=3)
 
 #Mouse Frame
 #Right Hold
-rHoldLabel = Button(mouseFrame, text='R hold', command=lambda:[toLoadingFrame(), timerConnector(), connectorFunction(1)])
+rHoldLabel = Button(mouseFrame, text='R hold', command=lambda:[toLoadingFrame(), connectorFunction(5), connectorFunction(1)])
 rHoldLabel.grid(row=2, column=3, padx=5, pady=5)
 #Right Click
-rClickLabel = Button(mouseFrame, text='R click', command=lambda:[toLoadingFrame(), timerConnector(), connectorFunction(2)])
+rClickLabel = Button(mouseFrame, text='R click', command=lambda:[toLoadingFrame(), connectorFunction(5), connectorFunction(2)])
 rClickLabel.grid(row=3, column=3, padx=5, pady=5)
 #Left Hold
-lHoldLabel = Button(mouseFrame, text='L hold', command=lambda:[toLoadingFrame(), timerConnector(), connectorFunction(3)])
+lHoldLabel = Button(mouseFrame, text='L hold', command=lambda:[toLoadingFrame(), connectorFunction(5), connectorFunction(3)])
 lHoldLabel.grid(row=2, column=1, padx=5, pady=5)
 #Left Click
-lClickLabel = Button(mouseFrame, text='L click', command=lambda:[toLoadingFrame(), timerConnector(), connectorFunction(4)])
+lClickLabel = Button(mouseFrame, text='L click', command=lambda:[toLoadingFrame(), connectorFunction(5), connectorFunction(4)])
 lClickLabel.grid(row=3, column=1, padx=5, pady=5)
 #Back button
 mouseBack = Button(mouseFrame, text='Back', command=toSelectionFrame)
