@@ -28,9 +28,11 @@ import time
 
 #MAIN FUNCTIONS
 connector = True
+keyPressed = ''
 
 #Keyboard Key Selector Function(names are hard)
 def keyboardKeySelector():
+    global keyPressed
     global connector
     keyPressed = keyboard.read_event(suppress=True)
 
@@ -74,7 +76,8 @@ def lClickFunction():
 #Reset all keys
 #TODO: Properly reset the mouse down and hold functions
 def resetKeys():
-    pyautogui.keyUp('w')
+    global keyPressed
+    pyautogui.keyUp(keyPressed.name)
     #Not 100% sure these actually work yet
     pyautogui.mouseUp(button='right')
     pyautogui.mouseUp(button='left')
